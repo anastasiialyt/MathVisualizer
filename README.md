@@ -43,10 +43,10 @@ dotnet run
 ## Example
 | Field | Value |
 | --- | --- |
-| xmin | `0` |
-| xmax | `6.28` |
-| step | `0.1` |
-| equation | `sin(x)` |
+| xmin | `2.0` |
+| xmax | `6.0` |
+| step | `1.1` |
+| equation | `2 * 3 + 4 * (4 - x)` |
 
 Press **Calculate**. The graph of one full sine wave appears, and `sin(x)` is added to the equation log.
 
