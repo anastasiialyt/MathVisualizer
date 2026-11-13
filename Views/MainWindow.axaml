@@ -1,0 +1,119 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:MathVisualizer.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:scottplot="clr-namespace:ScottPlot.Avalonia;assembly=ScottPlot.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="1000" d:DesignHeight="800"
+        Width="800" Height="800"
+        x:Class="MathVisualizer.Views.MainWindow"
+        x:DataType="vm:MainViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="MathVisualizer">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at MainWindow.axaml.cs) -->
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    
+    <Grid ShowGridLines="False" Background="AliceBlue" ColumnDefinitions="auto, *" RowDefinitions="auto, *">
+        <StackPanel Grid.Column="0">
+            <TextBlock 
+                Text="Enter xmin value:"
+                FontSize="16"
+                Margin="10, 5" />
+            <TextBox
+                Height="35"
+                Margin="10, 5"
+                Width="100"
+                HorizontalAlignment="Left"
+                Watermark="2.0"
+                Text="{Binding Xmin}"
+             />
+            <TextBlock 
+                Text="Enter xmax value:"
+                FontSize="16"
+                Margin="10, 5" />
+            <TextBox
+                Height="35"
+                Margin="10, 5"
+                Width="100"
+                HorizontalAlignment="Left"
+                Watermark="6.0"
+                Text="{Binding Xmax}"
+             />
+
+            <TextBlock 
+                Text="Enter step for x:"
+                FontSize="16"
+                Margin="10, 5" />
+            <TextBox
+                Height="35"
+                Margin="10, 5"
+                Width="100"
+                HorizontalAlignment="Left"
+                Watermark="2"
+                Text="{Binding Stepx}"
+            />
+            <TextBlock 
+                Text="Enter an equation below:" 
+                Margin="10, 15, 10, 1" 
+                FontSize="16" />
+            <TextBox 
+                Height="35" 
+                VerticalAlignment="Top" 
+                Margin="10, 5"
+                Watermark="2 * 3 + 4 * (4 - x)"
+                Text="{Binding MathExpression}" />
+            
+            <Button 
+                Content="Calculate" 
+                HorizontalAlignment="Center" 
+                Margin="10" 
+                FontSize="16" 
+                Height="40" 
+                Width="100" 
+                Background="#7C7CFF" 
+                Foreground="AntiqueWhite" 
+                HorizontalContentAlignment="Center"
+                VerticalContentAlignment="Center"
+                Command="{Binding UpdateGraphCommand}" />
+            <TextBlock
+                Text="{Binding ErrorMessage}"
+                Foreground="red"
+                FontSize="14"
+                HorizontalAlignment="Center"
+            />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="Equation log" Margin="10, 5" FontSize="16" />
+            <ListBox ItemsSource="{Binding ExpressionLog}"  />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <Button Content="Save plot in a new file" 
+                Margin="10"
+                FontSize="14" 
+                Foreground="Blue" 
+                HorizontalAlignment="Center"
+                Click="OnSaveClick" />
+            <TextBlock 
+                Text="New file is saved!" 
+                FontSize="16" 
+                Foreground="Green"
+                HorizontalAlignment="Center"
+                IsVisible="{Binding IsFileSaved}" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="0">
+           <scottplot:AvaPlot x:Name="PlotControl" Height="400" Width="500" Margin="10" />
+        </StackPanel>
+
+    </Grid>
+    
+
+
+</Window>
